@@ -7,67 +7,134 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;900&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #00d2ff; --accent: #ff9800; --bg: #0b0f19; --card: #161e2e; }
-        * { user-select: none; }
+        * { user-select: none; box-sizing: border-box; }
         body { background-color: var(--bg); color: white; font-family: 'Cairo', sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; align-items: center; overflow-x: hidden; position: relative; }
-        header { width: 100%; background: linear-gradient(135deg, #00d2ff, #3a7bd5); padding: 40px 0; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+        header { width: 100%; background: linear-gradient(135deg, #00d2ff, #3a7bd5); padding: 30px 0; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+        
         .banner-top, .banner-bottom { width: 100%; text-align: center; background: #0a0e15; padding: 20px 0; margin: 0 auto; display: flex; justify-content: center; align-items: center; border-radius: 12px; overflow-x: auto; }
         .banner-top { max-width: 900px; margin-top: 20px; margin-bottom: 10px; }
         .banner-bottom { max-width: 900px; margin-top: 30px; margin-bottom: 20px; }
+        
         .main-container { max-width: 900px; width: 95%; margin: 0 auto; text-align: center; }
+        
+        .back-home-btn { background: #252f44; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-family: 'Cairo', sans-serif; font-weight: bold; cursor: pointer; margin: 20px 0; transition: 0.3s; display: inline-flex; align-items: center; gap: 5px; text-decoration: none; }
+        .back-home-btn:hover { background: var(--primary); color: #000; }
+
         .video-wrapper-outer { position: relative; z-index: 1; }
         .video-display-area { background: #000; border-radius: 20px; overflow: hidden; border: 3px solid var(--primary); box-shadow: 0 0 30px rgba(0, 210, 255, 0.2); margin-bottom: 30px; display: none; position: relative; }
         .responsive-iframe { position: relative; width: 100%; aspect-ratio: 16 / 9; background: #000; overflow: hidden; }
-        .responsive-iframe iframe { position: absolute; top: -160px; left: 0; width: 100%; height: calc(100% + 160px); border: 0; overflow: hidden; pointer-events: auto; }
+        .responsive-iframe iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; overflow: hidden; pointer-events: auto; }
+        
         .episodes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)); gap: 15px; background: var(--card); padding: 25px; border-radius: 20px; }
-        .ep-btn { background: #252f44; color: white; border: 2px solid transparent; padding: 15px 0; border-radius: 12px; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .ep-btn:hover { background: var(--primary); transform: scale(1.1); border-color: white; }
+        .ep-btn { background: #252f44; color: white; border: 2px solid transparent; padding: 15px 0; border-radius: 12px; font-size: 1.2rem; font-weight: bold; cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center; font-family: 'Cairo', sans-serif; }
+        .ep-btn:hover { background: var(--primary); transform: scale(1.1); border-color: white; color: #000; }
         .ep-btn.active { background: var(--accent); color: black; box-shadow: 0 0 15px var(--accent); }
+
         .info-text { margin-top: 20px; color: var(--primary); }
         footer { margin-top: 50px; padding: 20px; opacity: 0.4; text-align: center; }
-        @media (max-width: 600px) { .episodes-grid { grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 10px; padding: 15px; } .ep-btn { padding: 10px 0; font-size: 1rem; } }
+        @media (max-width: 600px) { .episodes-grid { grid-template-columns: repeat(auto-fill, minmax(50px, 1fr)); gap: 10px; padding: 15px; } .ep-btn { padding: 12px 0; font-size: 1.1rem; } }
     </style>
 </head>
 <body>
-<header><h1>🎬 صدى الطفولة</h1><p>اختر رقم الحلقة وابدأ المشاهدة فوراً</p></header>
-<div class="banner-top"><script> atOptions = { 'key' : 'b8ba5b25ff25e41ea44c2df3a1b05378', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} }; </script><script src="https://www.highperformanceformat.com/b8ba5b25ff25e41ea44c2df3a1b05378/invoke.js"></script></div>
-<div class="main-container"><div class="video-wrapper-outer"><div id="videoPlayer" class="video-display-area"><div class="responsive-iframe"><iframe id="mainIframe" src="" allowfullscreen scrolling="no"></iframe></div><div id="episodeTitle" style="padding: 10px; background: var(--card); font-weight: bold;"></div></div></div><h2>اضغط على رقم الحلقة للمشاهدة:</h2><div class="episodes-grid" id="buttonsGrid"></div><p class="info-text">جميع حلقات دروب ريمي (26 حلقة) متوفرة الآن بجودة عالية</p></div>
-<div class="banner-bottom"><script> atOptions = { 'key' : 'b8ba5b25ff25e41ea44c2df3a1b05378', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} }; </script><script src="https://www.highperformanceformat.com/b8ba5b25ff25e41ea44c2df3a1b05378/invoke.js"></script></div>
+
+<header>
+    <h1>🎬 مسلسل دروب ريمي</h1>
+    <p>اختر رقم الحلقة وابدأ المشاهدة فوراً</p>
+</header>
+
+<!-- إعلان البنر العلوي -->
+<div class="banner-top">
+    <script> atOptions = { 'key' : 'b8ba5b25ff25e41ea44c2df3a1b05378', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} }; </script>
+    <script src="https://www.highperformanceformat.com/b8ba5b25ff25e41ea44c2df3a1b05378/invoke.js"></script>
+</div>
+
+<div class="main-container">
+    <a href="https://husamalu637.github.io/Sasuke/" class="back-home-btn">⬅ العودة إلى الرئيسية</a>
+
+    <div class="video-wrapper-outer">
+        <div id="videoPlayer" class="video-display-area">
+            <div class="responsive-iframe"><iframe id="mainIframe" src="" allowfullscreen allow="autoplay; encrypted-media" scrolling="no"></iframe></div>
+            <div id="episodeTitle" style="padding: 10px; background: var(--card); font-weight: bold;"></div>
+        </div>
+    </div>
+
+    <h2>اضغط على رقم الحلقة للمشاهدة:</h2>
+    <div class="episodes-grid" id="buttonsGrid"></div>
+    <p class="info-text">جميع حلقات دروب ريمي الـ 26 متوفرة وتعمل بكفاءة عالية</p>
+</div>
+
+<!-- إعلان البنر السفلي -->
+<div class="banner-bottom">
+    <script> atOptions = { 'key' : 'b8ba5b25ff25e41ea44c2df3a1b05378', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} }; </script>
+    <script src="https://www.highperformanceformat.com/b8ba5b25ff25e41ea44c2df3a1b05378/invoke.js"></script>
+</div>
+
 <footer>جميع الحقوق محفوظة - صدى الطفولة &copy; 2026</footer>
+
 <script>
-    const adLink = "https://www.profitablecpmratenetwork.com/e41dj2h87?key=bef514b5ca3fa945e7a3b60e4a9ef21a";
-    const episodes = [
-        { n: 1, src: "https://meyon.com.ye/videos/embed/1616991f-ce2a-4222-9b11-c959edd1d361" },
-        { n: 2, src: "https://meyon.com.ye/videos/embed/f0907fce-0e22-4339-b170-cdccff98773a" },
-        { n: 3, src: "https://meyon.com.ye/videos/embed/6acfa1f9-0d84-4711-8e31-393b27afd891" },
-        { n: 4, src: "https://meyon.com.ye/videos/embed/08504e10-6a93-4855-b7ce-05df18ef7953" },
-        { n: 5, src: "https://meyon.com.ye/videos/embed/c649bf6a-9570-4e26-bc1a-6ecb7a369a0b" },
-        { n: 6, src: "https://meyon.com.ye/videos/embed/a81714d0-dea8-4ce8-b30e-1e71d4c8029f" },
-        { n: 7, src: "https://meyon.com.ye/videos/embed/7ba01208-2985-4228-a508-b471333755ac" },
-        { n: 8, src: "https://meyon.com.ye/videos/embed/4da6de79-c734-4774-bc0a-4f8de451dadd" },
-        { n: 9, src: "https://meyon.com.ye/videos/embed/e2b011c6-08f0-4883-86a5-cd808415b835" },
-        { n: 10, src: "https://meyon.com.ye/videos/embed/5107965f-bb56-4672-920f-51939c3e9a27" },
-        { n: 11, src: "https://meyon.com.ye/videos/embed/558f46da-1759-416c-af63-9c57453b1ef4" },
-        { n: 12, src: "https://meyon.com.ye/videos/embed/015c4a96-b74a-49d5-ba9d-774945bd1334" },
-        { n: 13, src: "https://meyon.com.ye/videos/embed/5735a5ad-0e61-4162-bcb4-7ce20837844e" },
-        { n: 14, src: "https://meyon.com.ye/videos/embed/d96fed0a-02a1-4192-82a8-373e0e4f67a8" },
-        { n: 15, src: "https://meyon.com.ye/videos/embed/e29ed9a8-6ce5-42f2-a65b-7f404ccc1fd5" },
-        { n: 16, src: "https://meyon.com.ye/videos/embed/c0929107-00b9-4b10-ac82-c8aa8b9bdebb" },
-        { n: 17, src: "https://meyon.com.ye/videos/embed/d880e852-e726-4f35-aaef-8fc0fa805150" },
-        { n: 18, src: "https://meyon.com.ye/videos/embed/fa1083bb-7062-4ddc-8fa8-515c9d1f3d02" },
-        { n: 19, src: "https://meyon.com.ye/videos/embed/63a5646a-10ca-41da-b1da-b475fa9d70e6" },
-        { n: 20, src: "https://meyon.com.ye/videos/embed/e2cc1d08-feba-43ad-9e4c-bd8b33d51b1b" },
-        { n: 21, src: "https://meyon.com.ye/videos/embed/fe6cdd8d-2f8c-4b24-b39b-b3945fb20f10" },
-        { n: 22, src: "https://meyon.com.ye/videos/embed/768e9b53-88b7-4cfe-8207-5703b5613a3b" },
-        { n: 23, src: "https://meyon.com.ye/videos/embed/25105d3f-e986-4455-a98b-b591d306cd9c" },
-        { n: 24, src: "https://meyon.com.ye/videos/embed/104bd689-e4f6-42fc-a163-930601f7ee6c" },
-        { n: 25, src: "https://meyon.com.ye/videos/embed/61e87815-0da8-47ca-a57d-855b01bf0aa0" },
-        { n: 26, src: "https://meyon.com.ye/videos/embed/2d644400-63af-44fc-90bb-74ccbee8b655" }
+    const popupAdLink = "https://www.profitablecpmratenetwork.com/e41dj2h87?key=bef514b5ca3fa945e7a3b60e4a9ef21a";
+
+    // مصفوفة روابط الـ 26 حلقة لمسلسل دروب ريمي
+    const episodeLinks = [
+        "https://meyon.com.ye/videos/embed/1616991f-ce2a-4222-9b11-c959edd1d361", // 1
+        "https://meyon.com.ye/videos/embed/f0907fce-0e22-4339-b170-cdccff98773a", // 2
+        "https://meyon.com.ye/videos/embed/6acfa1f9-0d84-4711-8e31-393b27afd891", // 3
+        "https://meyon.com.ye/videos/embed/08504e10-6a93-4855-b7ce-05df18ef7953", // 4
+        "https://meyon.com.ye/videos/embed/c649bf6a-9570-4e26-bc1a-6ecb7a369a0b", // 5
+        "https://meyon.com.ye/videos/embed/a81714d0-dea8-4ce8-b30e-1e71d4c8029f", // 6
+        "https://meyon.com.ye/videos/embed/7ba01208-2985-4228-a508-b471333755ac", // 7
+        "https://meyon.com.ye/videos/embed/4da6de79-c734-4774-bc0a-4f8de451dadd", // 8
+        "https://meyon.com.ye/videos/embed/e2b011c6-08f0-4883-86a5-cd808415b835", // 9
+        "https://meyon.com.ye/videos/embed/5107965f-bb56-4672-920f-51939c3e9a27", // 10
+        "https://meyon.com.ye/videos/embed/558f46da-1759-416c-af63-9c57453b1ef4", // 11
+        "https://meyon.com.ye/videos/embed/015c4a96-b74a-49d5-ba9d-774945bd1334", // 12
+        "https://meyon.com.ye/videos/embed/5735a5ad-0e61-4162-bcb4-7ce20837844e", // 13
+        "https://meyon.com.ye/videos/embed/d96fed0a-02a1-4192-82a8-373e0e4f67a8", // 14
+        "https://meyon.com.ye/videos/embed/e29ed9a8-6ce5-42f2-a65b-7f404ccc1fd5", // 15
+        "https://meyon.com.ye/videos/embed/c0929107-00b9-4b10-ac82-c8aa8b9bdebb", // 16
+        "https://meyon.com.ye/videos/embed/d880e852-e726-4f35-aaef-8fc0fa805150", // 17
+        "https://meyon.com.ye/videos/embed/fa1083bb-7062-4ddc-8fa8-515c9d1f3d02", // 18
+        "https://meyon.com.ye/videos/embed/63a5646a-10ca-41da-b1da-b475fa9d70e6", // 19
+        "https://meyon.com.ye/videos/embed/e2cc1d08-feba-43ad-9e4c-bd8b33d51b1b", // 20
+        "https://meyon.com.ye/videos/embed/fe6cdd8d-2f8c-4b24-b39b-b3945fb20f10", // 21
+        "https://meyon.com.ye/videos/embed/768e9b53-88b7-4cfe-8207-5703b5613a3b", // 22
+        "https://meyon.com.ye/videos/embed/25105d3f-e986-4455-a98b-b591d306cd9c", // 23
+        "https://meyon.com.ye/videos/embed/104bd689-e4f6-42fc-a163-930601f7ee6c", // 24
+        "https://meyon.com.ye/videos/embed/61e87815-0da8-47ca-a57d-855b01bf0aa0", // 25
+        "https://meyon.com.ye/videos/embed/2d644400-63af-44fc-90bb-74ccbee8b655"  // 26
     ];
-    const grid = document.getElementById('buttonsGrid'); const player = document.getElementById('videoPlayer'); const iframe = document.getElementById('mainIframe'); const titleDisp = document.getElementById('episodeTitle');
+
+    const grid = document.getElementById('buttonsGrid'); 
+    const player = document.getElementById('videoPlayer'); 
+    const iframe = document.getElementById('mainIframe'); 
+    const titleDisp = document.getElementById('episodeTitle');
+    
     let scrollPosition = 0;
     function lockPage() { scrollPosition = window.scrollY; document.body.style.position = 'fixed'; document.body.style.top = `-${scrollPosition}px`; document.body.style.width = '100%'; }
     function unlockPage() { document.body.style.position = ''; document.body.style.top = ''; document.body.style.width = ''; window.scrollTo(0, scrollPosition); }
-    episodes.forEach((ep, index) => { const btn = document.createElement('button'); btn.className = 'ep-btn'; btn.innerText = ep.n; btn.onclick = function() { window.open(adLink, '_blank'); lockPage(); player.style.display = 'block'; iframe.src = ep.src; titleDisp.innerText = "أنت تشاهد الآن: دروب ريمي - الحلقة " + ep.n; document.querySelectorAll('.ep-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); setTimeout(() => { unlockPage(); }, 500); }; grid.appendChild(btn); });
+
+    episodeLinks.forEach((link, index) => { 
+        const btn = document.createElement('button'); 
+        btn.className = 'ep-btn'; 
+        
+        let epNum = index + 1;
+        btn.innerText = epNum; 
+        
+        btn.onclick = function() { 
+            window.open(popupAdLink, '_blank');
+            
+            lockPage(); 
+            player.style.display = 'block'; 
+            iframe.src = link; 
+            titleDisp.innerText = "أنت تشاهد الآن: دروب ريمي - الحلقة " + epNum; 
+            
+            document.querySelectorAll('.ep-btn').forEach(b => b.classList.remove('active')); 
+            btn.classList.add('active'); 
+            
+            setTimeout(() => { unlockPage(); }, 500); 
+        }; 
+        grid.appendChild(btn); 
+    });
 </script>
 </body>
 </html>
